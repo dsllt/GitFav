@@ -33,6 +33,7 @@ export class Favorites {
 
       this.rows = [user, ...this.rows]
       this.update()
+      this.verifyFavoritesEmptyTable()
       this.save()
     } catch (error) {
       alert(error.message)
@@ -55,6 +56,7 @@ export class FavoritesView extends Favorites {
 
     this.update()
     this.onadd()
+    this.verifyFavoritesEmptyTable()
   }
 
   clearInput() {
@@ -63,16 +65,11 @@ export class FavoritesView extends Favorites {
 
   onadd() {
     const addBtn = this.root.querySelector('.favorites')
-    const rowCount = this.tbody.querySelectorAll('tr').length
+
     addBtn.onclick = () => {
       const { value } = this.root.querySelector('.search input')
       this.add(value)
       this.clearInput()
-
-      if (rowCount == 0) {
-        this.root.querySelector('.filled').classList.remove('hide')
-        this.root.querySelector('.empty').classList.add('hide')
-      }
     }
   }
 
@@ -97,16 +94,25 @@ export class FavoritesView extends Favorites {
         )
         if (confirmDelete) {
           this.delete(user)
-
-          if (rowCount == 0) {
-            this.root.querySelector('.filled').classList.add('hide')
-            this.root.querySelector('.empty').classList.remove('hide')
-          }
         }
+        this.verifyFavoritesEmptyTable()
       }
 
       this.tbody.append(row)
     })
+  }
+
+  verifyFavoritesEmptyTable() {
+    const rowCount = this.rows.length
+
+    if (rowCount == 0) {
+      this.root.querySelector('.filled').classList.add('hide')
+      this.root.querySelector('.empty').classList.remove('hide')
+    }
+    if (rowCount !== 0) {
+      this.root.querySelector('.filled').classList.remove('hide')
+      this.root.querySelector('.empty').classList.add('hide')
+    }
   }
 
   createRow() {
