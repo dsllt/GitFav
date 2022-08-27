@@ -6,7 +6,7 @@
 
 Website developed in Rockeseat's Stage 6 Explorer course.
 <br>
-The project aimed to develop a page where you can store your favorite profiles on Github by exploring the functionalities of the HTML tag <table>.
+The project aimed to develop a page where you can store your favorite profiles on Github by exploring the functionalities of the HTML tag table.
 
 ## 🚀 Tecnologies
 
